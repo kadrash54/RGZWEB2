@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block main %}
+
+    <h1>Online Store</h1>
+    {% for product in products %}
+        <div>
+            <h2>{{ product.name }}</h2>
+            <p>Price: ${{ product.price }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

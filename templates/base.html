@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кирилл Кадралеев. {% block lab %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+{% block script %}{% endblock %}
+</head>
+<body>
+    <header>
+        Магазин "Софа"
+        <button style="position: relative; left: 3vw;" href="">
+            <a href="/app/login" target="_self">Логин</a>
+        </button>
+        <button style="position: relative; left: 3vw;" href="">
+            <a href="/app/register" target="_self">Регистрация</a>
+            <span  style="right: -7vw; position: relative; color:green">{{ name }}</span>
+        </button>
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        Магазин "Софа"
+        <button>
+            <a href="{{ url_for('index') }}">На главную</a>
+        </button>
+    </footer>
+</body>
+</html>
