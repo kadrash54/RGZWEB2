@@ -6,7 +6,7 @@
   {% if cart_items %}
     <ul>
       {% for item in cart_items %}
-        <li>{{ item.name }} - ${{ item.price }}</li>
+        <li>{{ item.name }} - {{ item.price }}$</li>
       {% endfor %}
     </ul>
     

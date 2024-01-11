@@ -28,3 +28,7 @@ footer {
     border-radius: 10px;
     width: fit-content;
 }
+
+a {
+    text-decoration: none;
+}

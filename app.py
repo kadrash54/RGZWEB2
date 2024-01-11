@@ -147,3 +147,9 @@ def view_cart():
     cart_items = furnitures.query.filter(furnitures.id.in_(cart_items_ids)).all()
 
     return render_template('cart.html', user=user, cart_items=cart_items)
+
+
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
