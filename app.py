@@ -91,3 +91,59 @@ def loginPage():
     session['username'] = user.username
 
     return redirect("index")
+
+
+@app.route('/add_to_cart/<int:furniture_id>', methods=['POST'])
+def add_to_cart(furniture_id):
+    errors = []
+    if 'id' not in session:
+        errors.append('Сначала вам нужно зарегистрироваться')
+        return redirect(url_for('index'))
+
+    user_id = session['id']
+    user = users.query.get(user_id)
+    furniture = furnitures.query.get(furniture_id)
+
+    # Используем сессии Flask для хранения товаров в корзине пользователя
+    cart_items = session.get('cart_items', [])
+    
+    if furniture_id not in cart_items:
+        cart_items.append(furniture_id)
+        session['cart_items'] = cart_items
+
+    return redirect(url_for('index'))
+
+@app.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    if 'id' not in session:
+        return redirect(url_for('index'))
+
+    user_id = session['id']
+    user = users.query.get(user_id)
+
+    # Используем сессии Flask для хранения товаров в корзине пользователя
+    cart_items_ids = session.get('cart_items', [])
+    cart_items = furnitures.query.filter(furnitures.id.in_(cart_items_ids)).all()
+
+    if request.method == 'POST':
+        # Обработка оформления заказа
+        # Очистка корзины, обновление базы данных и т.д.
+        session.pop('cart_items', None)
+        return redirect(url_for('index'))
+
+    return render_template('checkout.html', user=user, cart_items=cart_items)
+
+
+@app.route('/cart')
+def view_cart():
+    if 'id' not in session:
+        return redirect(url_for('loginPage'))
+
+    user_id = session['id']
+    user = users.query.get(user_id)
+
+    # Используем сессии Flask для хранения товаров в корзине пользователя
+    cart_items_ids = session.get('cart_items', [])
+    cart_items = furnitures.query.filter(furnitures.id.in_(cart_items_ids)).all()
+
+    return render_template('cart.html', user=user, cart_items=cart_items)

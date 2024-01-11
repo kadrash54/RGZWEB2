@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block main %}
 
-    <h1>Online Store</h1>
-    {% for product in products %}
-        <div>
-            <h2>{{ product.name }}</h2>
-            <p>Price: ${{ product.price }}</p>
-        </div>
-    {% endfor %}
+    <h1 style="    position: relative; left: 45.5vw; width: fit-content">Витрина</h1>
+    {% for furniture in furniture %}
+            <div class="card">
+                <h5 class="card-title">{{ furniture.name }}</h5>
+                <p class="card-text">Price: {{ furniture.price }} $</p>
+
+                <form method="post" action="{{ url_for('add_to_cart', furniture_id=furniture.id) }}">
+                    <button type="submit">Добавить в корзину</button>
+                    <span>{{ errors }}</span>
+                </form>
+            </div>
+            <br>
+        {% endfor %}
 {% endblock %}

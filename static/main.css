@@ -20,3 +20,11 @@ footer {
     padding: 20px;
     background: lightgray;
 }
+
+.card {
+    position: relative;
+    left: 45vw;
+    border: 5px solid green;
+    border-radius: 10px;
+    width: fit-content;
+}
